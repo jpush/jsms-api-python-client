@@ -36,18 +36,41 @@ class Jsms(object):
         }
         return self._post(end_point, body)
 
-    def send_teml(self, mobile, temp_id, temp_para=None):
+    def send_teml(self, mobile, temp_id, temp_para=None, time=None):
         body = {
             'mobile': mobile,
             'temp_id': temp_id
         }
         if temp_para is not None:
             body['temp_para'] = temp_para
+        if time is not None:
+            body['time'] = time
         return self._post('messages', body)
 
 
     def send_batch_teml(self, mobile, temp_id, recipients=None):
         pass
+
+    def show_schedule_message(self, schedule_id):
+        end_point = 'schedule/' + schedule_id
+        return self._get(end_point)
+
+    def update_schedule_message(self, schedule_id, mobile, temp_id, temp_para=None, time=None):
+        pass
+
+    def delete_schedule_message(self, schedule_id):
+        end_point = 'schedule/' + schedule_id
+        return self._del(end_point)
+
+    def app_balance(self):
+        end_point = 'accounts/app'
+        return self._get(end_point)
+
+    def _get(self, end_point):
+        return self._request('GET', end_point)
+
+    def _del(self, end_point):
+        return self._request('DELETE', end_point)
 
     def _post(self, end_point, body):
         return self._request('POST', end_point, body)
