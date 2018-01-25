@@ -37,6 +37,7 @@ class Jsms(object):
         return self._post(end_point, body)
 
     def send_teml(self, mobile, temp_id, temp_para=None, time=None):
+        end_point = 'messages'
         body = {
             'mobile': mobile,
             'temp_id': temp_id
@@ -44,8 +45,9 @@ class Jsms(object):
         if temp_para is not None:
             body['temp_para'] = temp_para
         if time is not None:
-            body['time'] = time
-        return self._post('messages', body)
+            body['send_time'] = time
+            end_point = 'schedule'
+        return self._post(end_point, body)
 
 
     def send_batch_teml(self, mobile, temp_id, recipients=None):
@@ -75,8 +77,12 @@ class Jsms(object):
     def _post(self, end_point, body):
         return self._request('POST', end_point, body)
 
-    def _request(self, method, end_point, body):
+    def _request(self, method, end_point, body=None):
         uri = self.BASE_URL + end_point
-        r = self.session.request(method, uri, data=json.dumps(body))
-        print(r.json())
-
+        if body is not None:
+            body = json.dumps(body)
+        r = self.session.request(method, uri, data=body)
+        if 0 == len(r.content):
+            return r.status_code
+        else:
+            return r.json()
