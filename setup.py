@@ -15,7 +15,7 @@ setup(
     long_description = readme,
     author = 'jpush',
     author_email = 'support@jpush.cn',
-    url = 'https://github.com/jpush/jpush-api-python-client',
+    url = 'https://github.com/jpush/jsms-api-python-client',
     license = 'MIT',
     # packages = [ 'jsms' ],
     install_requires = [ 'requests' ],

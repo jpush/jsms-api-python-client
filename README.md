@@ -103,11 +103,18 @@ https://docs.jiguang.cn/jsms/server/rest_api_summary/#_1
 
 ### 简单使用方法
 
-- 编辑 context.py 文件，填写信息
+- 复制 config.py 文件
+
+```bash
+$ cp config.py.example config.py
+```
+
+- 编辑 config.py 文件，填写信息
 
 ```python
-jsms_client = jsms.Jsms('xxxx', 'xxxx')
-mobile = 'xxxxxxxxxxx'
+app_key = 'xxxx'
+master_secret = 'xxxx'
+mobile = 'xxxx'
 ```
 
 - 运行示例
