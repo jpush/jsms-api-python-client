@@ -68,6 +68,38 @@ class Jsms(object):
         end_point = 'accounts/app'
         return self._get(end_point)
 
+    def show_sign(self, sign_id):
+        end_point = 'sign/' + sign_id
+        return self._get(end_point)
+
+    def delete_sign(self, sign_id):
+        end_point = 'sign/' + sign_id
+        return self._del(end_point)
+
+    def create_sign(self, sign, image0=None, image1=None, image2=None, image3=None):
+        end_point = 'sign'
+        return self._sign(end_point, sign, image0, image1, image2, image3)
+
+    def upadte_sign(self, sign_id, sign, image0=None, image1=None, image2=None, image3=None):
+        end_point = 'sign/' + sign_id
+        return self._sign(end_point, sign, image0, image1, image2, image3)
+
+    def _sign(self, end_point, sign=None, image0=None, image1=None, image2=None, image3=None):
+        uri = self.BASE_URL + end_point
+        images = {
+            'image0': image0,
+            'image1': image1,
+            'image2': image2,
+            'image3': image3,
+        }
+        uploads = { k: v for k, v in images.items() if v is not None }
+        uploads['sign'] = (None, sign)
+        r = self.session.post(uri, files=uploads)
+        if 0 == len(r.content):
+            return r.status_code
+        else:
+            return r.json()
+
     def _get(self, end_point):
         return self._request('GET', end_point)
 
