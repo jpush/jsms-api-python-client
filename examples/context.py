@@ -1,9 +1,9 @@
-import os
-import sys
+import os, sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, BASE)
 
-import jsms
+from config import app_key, master_secret, mobile
+from jsms import Jsms
 
-jsms_client = jsms.Jsms('xxxxxx', 'xxxxxx')
-mobile = 'xxxxxxxxxxx'
+jc = Jsms(app_key, master_secret)
