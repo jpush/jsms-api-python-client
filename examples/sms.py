@@ -1,4 +1,4 @@
-from context import jc, mobile
+from context import jc, mobile, image
 import sys
 import datetime
 
@@ -53,6 +53,11 @@ def tmpl_task():
 def blance():
     response = jc.app_balance()
     print(response)
+
+# def create_sign():
+#     with open(image, 'rb') as im:
+#         response = jc.create_sign('test', im, remark='ssss')
+#         print(response)
 
 if __name__ == '__main__':
     if (len(sys.argv) == 2):

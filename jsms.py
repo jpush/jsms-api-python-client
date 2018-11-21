@@ -1,6 +1,6 @@
 import requests
 import json
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 class Jsms(object):
 
@@ -76,24 +76,24 @@ class Jsms(object):
         end_point = 'sign/' + sign_id
         return self._del(end_point)
 
-    def create_sign(self, sign, image0=None, image1=None, image2=None, image3=None):
+    def create_sign(self, sign, image0=None, type=None, remark=None):
         end_point = 'sign'
-        return self._sign(end_point, sign, image0, image1, image2, image3)
+        return self._sign(end_point, sign, image0, type, remark)
 
-    def upadte_sign(self, sign_id, sign, image0=None, image1=None, image2=None, image3=None):
+    def upadte_sign(self, sign_id, sign, image0=None, type=None, remark=None):
         end_point = 'sign/' + sign_id
-        return self._sign(end_point, sign, image0, image1, image2, image3)
+        return self._sign(end_point, sign, image0, type, remark)
 
-    def _sign(self, end_point, sign=None, image0=None, image1=None, image2=None, image3=None):
+    def _sign(self, end_point, sign=None, image0=None, type=None, remark=None):
         uri = self.BASE_URL + end_point
-        images = {
-            'image0': image0,
-            'image1': image1,
-            'image2': image2,
-            'image3': image3,
-        }
-        uploads = { k: v for k, v in images.items() if v is not None }
+        uploads = {}
         uploads['sign'] = (None, sign)
+        if image0 is not None:
+            uploads['image0'] = image0
+        if type is not None:
+            uploads['type'] = (None, str(type))
+        if remark is not None:
+            uploads['remark'] = (None, remark)
         r = self.session.post(uri, files=uploads)
         if 0 == len(r.content):
             return r.status_code

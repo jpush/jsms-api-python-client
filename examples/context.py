@@ -7,3 +7,5 @@ from config import app_key, master_secret, mobile
 from jsms import Jsms
 
 jc = Jsms(app_key, master_secret)
+
+image = os.path.join(BASE, 'xxxx')
